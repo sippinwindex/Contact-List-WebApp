@@ -1,4 +1,4 @@
-# SEE THE LIVE WebApp below!
+# See the live WebApp below!
 
 https://contact-list-web-app-with-api.vercel.app/
 
