@@ -1,0 +1,142 @@
+/* src/pages/Home.css */
+
+.home-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ 
+    min-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 60px - 70px); 
+    padding: 20px;
+    overflow: hidden; /* Hide any overflow from monitor effect */
+    box-sizing: border-box;
+}
+
+.c64-monitor-effect {
+
+}
+
+.c64-screen {
+    background-color: #0000AF; /* Classic C64 Blue */
+    color: #84FFFF; 
+    font-family: 'VT323', 'Press Start 2P', monospace; 
+    padding: 25px 30px; /* Slightly adjusted padding */
+    border: 18px solid #4a4a55; 
+    border-top-width: 25px; 
+    border-bottom-width: 35px; 
+    border-radius: 15px 15px 35px 35px / 8px 8px 25px 25px;
+    box-shadow: 
+        inset 0 0 40px rgba(0,0,0,0.65), /* Deeper inner shadow */
+        0 5px 25px rgba(0,0,0,0.6), 
+        6px 6px 0px #2c2c33;
+    width: 90%;
+    max-width: 750px; 
+    min-height: 450px; 
+    display: flex;
+    flex-direction: column;
+    position: relative; 
+    overflow: hidden; 
+    perspective: 1200px;
+    .home-container rotate 
+    transform: rotateX(3deg) rotateY(-2deg) translateZ(0);
+}
+
+/* Subtle screen glare effect */
+.c64-screen::before {
+    content: '';
+    position: absolute;
+    top: -10%; /* Extend glare beyond top */
+    left: -50%; /* Start glare from far left */
+    width: 150%; /* Make glare wider than screen */
+    height: 120%; /* Make glare taller */
+    background: radial-gradient(
+        ellipse at center,
+        rgba(200, 200, 255, 0.08) 0%, /* Center highlight */
+        rgba(150, 150, 220, 0.05) 30%,
+        rgba(50, 50, 100, 0.02) 60%,
+        transparent 80% /* Fade out */
+    ), linear-gradient(
+        135deg, /* Diagonal glare */
+        rgba(255,255,255,0.0) 30%,
+        rgba(255,255,255,0.12) 48%, /* Main glare line */
+        rgba(255,255,255,0.08) 50%, /* Softer edge */
+        rgba(255,255,255,0.0) 70%
+    );
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit; /* Match screen's border radius for glare */
+}
+
+.c64-text-output {
+    flex-grow: 1;
+    font-size: 1.2rem; 
+    line-height: 1.7; 
+    white-space: pre; 
+    z-index: 2; 
+    position: relative;
+    padding-top: 10px; 
+}
+
+.c64-text-output p {
+    margin-bottom: 0.6em;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.7); /* Stronger text shadow for CRT effect */
+}
+
+.c64-prompt {
+    display: flex; 
+    align-items: baseline;
+    margin-top: 1em; 
+}
+
+.typed-command {
+    color: #BFFFCF; 
+    margin-left: 4px; 
+
+.blinking-cursor {
+    background-color: #84FFFF; 
+    color: #0000AF; 
+    animation: blink 0.9s step-end infinite; 
+    display: inline-block;
+    width: 0.7em; 
+    height: 1.2em; 
+    line-height: 1.2em; 
+    margin-left: 3px; 
+    vertical-align: baseline; 
+}
+
+@keyframes blink {
+    0%, 100% { background-color: #84FFFF; color: #0000AF; } /* Visible block */
+    50% { background-color: transparent; color: transparent; } 
+}
+
+
+.c64-start-button {
+    margin-top: 25px;
+    padding: 12px 24px !important; 
+    font-size: 1.1rem !important; 
+    font-family: 'Press Start 2P', monospace; /* Use the more blocky font for button */
+    background-color: #505058 !important; 
+    border: 2px solid #707078 !important;
+    color: #D0D0E8 !important;
+    box-shadow: 3px 3px 0px #303038, inset 0 0 6px rgba(255,255,255,0.1);
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-block; 
+    letter-spacing: 1px;
+}
+
+.c64-start-button:hover, .c64-start-button:focus {
+    background-color: #606068 !important;
+    color: #FFFFFF !important;
+    border-color: #808088 !important;
+    box-shadow: 4px 4px 0px #303038, inset 0 0 10px rgba(255,255,255,0.2), 0 0 12px var(--retro-accent) !important;
+    transform: translate(-1px, -1px);
+}
+
+
+body::after
+body::after {
+    content: "";
+    position: fixed;
+    z-index: -1;
+}

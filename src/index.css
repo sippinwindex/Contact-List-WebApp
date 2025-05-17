@@ -1,0 +1,454 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+    --retro-bg: #030310; /* Darker blue/almost black */
+    --retro-text: #00FF41; /* Bright Green */
+    --retro-text-secondary: #00D5FF; /* Cyan/Teal */
+    --retro-accent: #FFB400; /* Gold/Orange */
+    --retro-border: rgba(0, 255, 65, 0.4); /* Green border */
+    --retro-error: #FF3333;
+
+    --glass-bg: rgba(20, 30, 55, 0.35); /* Bluish glass */
+    --glass-border: rgba(100, 150, 200, 0.25);
+    --glass-blur: 6px;
+    --glass-text-color: var(--retro-text);
+}
+
+body {
+    font-family: 'VT323', monospace;
+    background-color: var(--retro-bg);
+    color: var(--retro-text);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-image: /* Subtle cross-hatch texture */
+        linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 12px 12px; /* Adjust for texture density */
+    overflow-x: hidden;
+    font-size: 18px; 
+    line-height: 1.6;
+}
+
+/* Scanline Overlay */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        transparent,
+        transparent 2px,
+        rgba(0, 10, 0, 0.3) 2px, /* Dark green subtle scanline */
+        rgba(0, 10, 0, 0.3) 3px 
+    );
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Press Start 2P', cursive;
+    color: var(--retro-accent);
+    text-shadow: 2px 2px var(--retro-bg), 3px 3px rgba(0,0,0,0.5); /* Stronger shadow */
+    margin-bottom: 1rem;
+}
+h1 { font-size: 2rem; }
+h5.card-title { font-size: 1.2rem; margin-bottom: 0.75rem; }
+
+
+a {
+    color: var(--retro-accent);
+    text-decoration: none;
+}
+a:hover, a:focus {
+    color: #FFD700; /* Brighter gold */
+    text-decoration: underline;
+    text-shadow: 0 0 5px var(--retro-accent);
+}
+
+/* --- Glassmorphic Buttons --- */
+.btn {
+    font-family: 'Press Start 2P', cursive;
+    padding: 10px 18px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--glass-text-color) !important; 
+    border-radius: 6px; /* Slightly less rounded for retro feel */
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    box-shadow: 0 0 3px rgba(0,0,0,0.2), 
+                inset 0 0 8px rgba(0, 255, 65, 0.1), 
+                2px 2px 0px rgba(0,0,0,0.3); 
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.btn:hover, .btn:focus {
+    background: rgba(40, 60, 90, 0.5);
+    color: #AFFFAD !important; /* Lighter green */
+    border-color: rgba(150, 200, 255, 0.4);
+    box-shadow: 0 0 12px rgba(0, 255, 65, 0.5), /* Outer green glow */
+                0 0 15px rgba(0, 255, 65, 0.3),
+                inset 0 0 10px rgba(0, 255, 65, 0.2),
+                3px 3px 0px rgba(0,0,0,0.4);
+    transform: translate(-1px, -1px); /* Slight lift */
+}
+.btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+}
+
+.btn-primary {
+    background: rgba(0, 80, 150, 0.4); /* Blueish primary */
+    border-color: rgba(0, 150, 255, 0.5);
+}
+.btn-primary:hover { background: rgba(0, 100, 180, 0.6); }
+
+.btn-success {
+    background: rgba(0, 100, 0, 0.4); /* Greenish success */
+    border-color: rgba(0, 180, 0, 0.5);
+}
+.btn-success:hover { background: rgba(0, 120, 0, 0.6); }
+
+.btn-outline-primary, .btn-outline-danger, .btn-outline-secondary {
+    background: transparent;
+    border-width: 2px;
+    color: var(--retro-text) !important;
+}
+.btn-outline-primary { border-color: var(--retro-accent); color: var(--retro-accent) !important; }
+.btn-outline-danger { border-color: var(--retro-error); color: var(--retro-error) !important; }
+.btn-outline-secondary { border-color: var(--retro-text-secondary); color: var(--retro-text-secondary) !important; }
+
+.btn-outline-primary:hover, .btn-outline-danger:hover, .btn-outline-secondary:hover {
+    color: var(--retro-bg) !important;
+    text-shadow: none;
+}
+.btn-outline-primary:hover { background-color: var(--retro-accent); }
+.btn-outline-danger:hover { background-color: var(--retro-error); }
+.btn-outline-secondary:hover { background-color: var(--retro-text-secondary); }
+
+.btn-sm { padding: 6px 12px; font-size: 0.65rem; }
+.btn i { margin-right: 6px; } /* Space after icon in button */
+
+/* --- Cards --- */
+.card {
+    background: rgba(10, 15, 30, 0.6); /* Darker, slightly transparent */
+    border: 2px solid var(--retro-border);
+    border-radius: 8px;
+    box-shadow: 4px 4px 0px var(--retro-border), 6px 6px 0px rgba(0,0,0,0.3); /* Pixelated shadow */
+    color: var(--retro-text);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    overflow: hidden;
+    height: 100%; /* Ensure h-100 works well */
+}
+
+.card-text {
+    font-size: 1rem; /* Matched to body font-size */
+    line-height: 1.5;
+    color: #B0FFC0; /* Lighter green for readability */
+}
+.card-text i {
+    color: var(--retro-text-secondary);
+    margin-right: 10px;
+    width: 15px; /* Align icons */
+    text-align: center;
+}
+.card-img-top {
+    border-bottom: 2px solid var(--retro-border);
+    background-color: rgba(0,0,0,0.4);
+    aspect-ratio: 4 / 3; /* Maintain aspect ratio */
+}
+
+/* --- Forms --- */
+.form-control, .form-select {
+    background-color: rgba(0,0,0,0.4);
+    border: 1px solid var(--retro-border);
+    color: var(--retro-text);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-family: 'VT323', monospace;
+    font-size: 1.1rem;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5);
+}
+.form-control:focus {
+    background-color: rgba(0, 10, 0, 0.5); /* Darker green focus */
+    border-color: var(--retro-accent);
+    color: #EEFFEE;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.4), inset 1px 1px 3px rgba(0,0,0,0.6);
+    outline: none;
+}
+.form-label {
+    color: var(--retro-text-secondary);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+textarea.form-control { min-height: 100px; }
+
+/* --- Navbar --- */
+.navbar {
+    background: rgba(5, 10, 20, 0.65) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 3px solid var(--retro-border);
+    padding: 0.75rem 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+.navbar-brand {
+    font-family: 'Press Start 2P', cursive;
+    color: var(--retro-accent) !important;
+    font-size: 1.4rem !important;
+    text-shadow: 2px 2px #000;
+}
+.navbar .nav-link {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    color: var(--retro-text-secondary) !important;
+    padding: 0.5rem 1rem;
+    transition: color 0.2s ease;
+}
+.navbar .nav-link:hover, .navbar .nav-link:focus {
+    color: var(--retro-accent) !important;
+    text-shadow: 0 0 5px var(--retro-accent);
+}
+.navbar-toggler {
+    border-color: var(--retro-border);
+}
+.navbar-toggler-icon { /* Custom SVG or style for better retro look */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 255, 65, 0.8)' stroke-linecap='square' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+/* --- Alert Messages --- */
+.alert {
+    border-width: 2px;
+    border-style: solid;
+    font-family: 'VT323', monospace;
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 0; /* Blocky for retro */
+    box-shadow: 3px 3px 0px rgba(0,0,0,0.4);
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+}
+.alert-danger {
+    background-color: rgba(100, 0, 0, 0.4);
+    border-color: var(--retro-error);
+    color: #FFB0B0;
+}
+.alert-info {
+    background-color: rgba(0, 60, 100, 0.4);
+    border-color: var(--retro-text-secondary);
+    color: #B0E0FF;
+}
+
+/* --- Gender Radio Buttons --- */
+.gender-selector {
+    display: flex;
+    gap: 20px; /* Increased gap */
+    align-items: center;
+    margin-bottom: 1.5rem; 
+    padding: 10px;
+    background: rgba(0,0,0,0.2);
+    border: 1px dashed var(--retro-border);
+}
+.gender-selector label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    color: var(--retro-text-secondary);
+}
+.gender-selector input[type="radio"] { display: none; }
+.gender-selector img {
+    width: 50px; /* Slightly smaller */
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--retro-text-secondary);
+    margin-bottom: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: rgba(0,0,0,0.3);
+}
+.gender-selector label:hover img {
+    transform: scale(1.1);
+    border-color: var(--retro-accent);
+    box-shadow: 0 0 8px var(--retro-accent);
+}
+.gender-selector input[type="radio"]:checked + label {
+    border-color: var(--retro-accent);
+    background-color: rgba(255, 180, 0, 0.1);
+    color: var(--retro-accent);
+}
+.gender-selector input[type="radio"]:checked + label img {
+    border-color: var(--retro-accent);
+    box-shadow: 0 0 12px var(--retro-accent), 0 0 5px var(--retro-accent) inset;
+}
+.gender-selector span { /* Text under image */
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.65rem;
+    margin-top: 2px;
+}
+
+/* Contact Card Action Buttons Alignment */
+.contact-card-actions {
+    margin-top: auto;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem; /* Use gap for spacing */
+}
+
+/*Spinner for loading states*/
+.spinner-border {
+    color: var(--retro-accent);
+    border-width: .2em; /* Thinner spinner */
+}
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: .15em;
+}
+
+/* General container padding */
+.container {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body { font-size: 16px; }
+    h1 { font-size: 1.5rem; }
+    .navbar-brand { font-size: 1.2rem !important; }
+    .btn { font-size: 0.7rem; padding: 8px 14px; }
+    .card-title { font-size: 1rem; }
+    .card-text { font-size: 0.9rem; }
+    .gender-selector { flex-direction: column; align-items: flex-start; }
+}
+
+
+/* --- Retro Footer --- */
+.retro-footer {
+    background-color: rgba(5, 10, 20, 0.75); /* Similar to navbar, slightly more opaque */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-top: 3px solid var(--retro-border);
+    padding: 15px 0; /* Adjust padding */
+    text-align: center;
+    font-family: 'VT323', monospace;
+    font-size: 0.9rem;
+    color: var(--retro-text-secondary);
+    margin-top: auto; /* Pushes footer to bottom in flex container */
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+    position: relative; 
+    z-index: 10;
+}
+
+.retro-footer .footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Space between text and GitHub icon */
+    margin-bottom: 8px;
+}
+
+.retro-footer .footer-c64-line {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    color: var(--retro-text); /* Green for the READY prompt */
+    letter-spacing: 0.5px;
+}
+
+.retro-heart {
+    color: #FF3333; /* Retro red */
+    text-shadow: 0 0 3px #FF3333, 0 0 5px #FF0000;
+    animation: pulseHeart 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseHeart {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.github-link-container {
+    display: inline-block; /* Allows transform */
+}
+
+.github-icon-link {
+    display: inline-block; /* Needed for transform */
+    color: var(--retro-text-secondary);
+    font-size: 1.8rem; /* Make icon larger */
+    transition: transform 0.2s ease-out, text-shadow 0.3s ease-in-out;
+    text-decoration: none;
+}
+
+.github-icon-link:hover,
+.github-icon-link:focus {
+    color: #fff; 
+    transform: scale(1.25); /* Zoom effect */
+    animation: rgbGlow 2s infinite linear;
+    text-decoration: none; /* Remove underline from <a> */
+}
+
+@keyframes rgbGlow {
+    0% {
+        text-shadow: 0 0 5px #FF0000, 0 0 10px #FF0000, 0 0 15px #FF0000; /* Red */
+    }
+    16% {
+        text-shadow: 0 0 5px #FF7F00, 0 0 10px #FF7F00, 0 0 15px #FF7F00; /* Orange */
+    }
+    33% {
+        text-shadow: 0 0 5px #FFFF00, 0 0 10px #FFFF00, 0 0 15px #FFFF00; /* Yellow */
+    }
+    50% {
+        text-shadow: 0 0 5px #00FF00, 0 0 10px #00FF00, 0 0 15px #00FF00; /* Green */
+    }
+    66% {
+        text-shadow: 0 0 5px #0000FF, 0 0 10px #0000FF, 0 0 15px #0000FF; /* Blue */
+    }
+    83% {
+        text-shadow: 0 0 5px #4B0082, 0 0 10px #4B0082, 0 0 15px #4B0082; /* Indigo */
+    }
+    100% {
+        text-shadow: 0 0 5px #9400D3, 0 0 10px #9400D3, 0 0 15px #9400D3; /* Violet */
+    }
+}
+
+body {
+    /* ... existing body styles ... */
+    padding-bottom: 80px; 
+
+}
+
+/* FOR SNMALL SCREEN FORMATS */
+
+@media (max-width: 420px) { /* Target screens narrower than 420px, adjust as needed */
+    .retro-footer .footer-content {
+        flex-direction: column; /* Stack "Made with" and GitHub icon vertically */
+        gap: 10px; /* Reduce gap when stacked */
+    }
+
+    .retro-footer .footer-c64-line {
+        font-size: 0.7rem; /* Slightly smaller font for very narrow screens */
+        line-height: 1.4; 
+    }
+
+    .github-icon-link {
+        font-size: 1.6rem; 
+    }
+}
